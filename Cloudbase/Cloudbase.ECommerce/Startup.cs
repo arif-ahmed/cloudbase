@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using CloudBase.Core.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,8 +39,15 @@ namespace Cloudbase.ECommerce
             }));
             #endregion
 
-            #region Add Authentication
-            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]));
+            #region Add Authentication  
+
+            RSA publicRsa = RSA.Create();
+            publicRsa.FromXmlFile(Path.Combine(Directory.GetCurrentDirectory(),
+                "Keys",
+                this.Configuration.GetValue<String>("Tokens:PublicKey")
+            ));
+            RsaSecurityKey signingKey = new RsaSecurityKey(publicRsa);
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

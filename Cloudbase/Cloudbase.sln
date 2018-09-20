@@ -7,11 +7,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{ED5E6272-87C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{919E23EF-1AD7-4EAB-A999-06E941D8CEE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudbase.Entities", "Cloudbase.Entities\Cloudbase.Entities.csproj", "{3B097D4F-2202-4E24-8D96-ABD7F29CB9DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudbase.Entities", "Cloudbase.Entities\Cloudbase.Entities.csproj", "{3B097D4F-2202-4E24-8D96-ABD7F29CB9DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudbase.Security", "Cloudbase.Security\Cloudbase.Security.csproj", "{0D2F5E05-DF35-4529-870A-35671246BED1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudbase.Security", "Cloudbase.Security\Cloudbase.Security.csproj", "{0D2F5E05-DF35-4529-870A-35671246BED1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloudbase.ECommerce", "Cloudbase.ECommerce\Cloudbase.ECommerce.csproj", "{FD135184-4B14-4D23-B71C-8107D563E5F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudbase.ECommerce", "Cloudbase.ECommerce\Cloudbase.ECommerce.csproj", "{FD135184-4B14-4D23-B71C-8107D563E5F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utility", "Utility", "{9B4FAA15-9994-41A6-B4F6-CB21787015E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudBase.Core.Extensions", "CloudBase.Core.Extensions\CloudBase.Core.Extensions.csproj", "{3B929E8F-8361-4FDE-9A79-B319699ABD40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,10 @@ Global
 		{FD135184-4B14-4D23-B71C-8107D563E5F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD135184-4B14-4D23-B71C-8107D563E5F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD135184-4B14-4D23-B71C-8107D563E5F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B929E8F-8361-4FDE-9A79-B319699ABD40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B929E8F-8361-4FDE-9A79-B319699ABD40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B929E8F-8361-4FDE-9A79-B319699ABD40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B929E8F-8361-4FDE-9A79-B319699ABD40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +47,7 @@ Global
 		{3B097D4F-2202-4E24-8D96-ABD7F29CB9DD} = {919E23EF-1AD7-4EAB-A999-06E941D8CEE8}
 		{0D2F5E05-DF35-4529-870A-35671246BED1} = {ED5E6272-87CE-4F20-9CFD-C75933F31880}
 		{FD135184-4B14-4D23-B71C-8107D563E5F9} = {ED5E6272-87CE-4F20-9CFD-C75933F31880}
+		{3B929E8F-8361-4FDE-9A79-B319699ABD40} = {9B4FAA15-9994-41A6-B4F6-CB21787015E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5937CAD5-63F1-47B1-8810-C5AE0BDE1C75}

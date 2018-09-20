@@ -1,5 +1,9 @@
-﻿using System.Text;
+﻿using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using Cloudbase.Entities;
+using CloudBase.Core.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,10 +24,10 @@ namespace Cloudbase.Security
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // This method gets called by the runtime. Use this method to add services to the container.  
         public void ConfigureServices(IServiceCollection services)
         {
-            #region Add CORS
+            #region Add CORS  
             services.AddCors(options => options.AddPolicy("Cors", builder =>
             {
                 builder
@@ -33,25 +37,25 @@ namespace Cloudbase.Security
             }));
             #endregion
 
-            #region Add Entity Framework and Identity Framework
+            #region Add Entity Framework and Identity Framework  
 
             services.AddDbContext<ApplicationUserDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-                {
-                    options.Password.RequiredLength = 6;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireDigit = false;
-                })
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationUserDbContext>();
 
             #endregion
 
-            #region Add Authentication
-            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]));
+            #region Add Authentication  
+
+            RSA publicRsa = RSA.Create();
+            publicRsa.FromXmlFile(Path.Combine(Directory.GetCurrentDirectory(),
+                "Keys",
+                 this.Configuration.GetValue<String>("Tokens:PublicKey")
+                 ));
+            RsaSecurityKey signingKey = new RsaSecurityKey(publicRsa);
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -64,20 +68,20 @@ namespace Cloudbase.Security
                 {
                     IssuerSigningKey = signingKey,
                     ValidateAudience = true,
-                    ValidAudience = Configuration["Tokens:Audience"],
+                    ValidAudience = this.Configuration["Tokens:Audience"],
                     ValidateIssuer = true,
-                    ValidIssuer = Configuration["Tokens:Issuer"],
+                    ValidIssuer = this.Configuration["Tokens:Issuer"],
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true
                 };
             });
-            #endregion
 
+            #endregion
 
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.  
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseCors("Cors");
@@ -93,4 +97,5 @@ namespace Cloudbase.Security
 
         }
     }
+
 }
