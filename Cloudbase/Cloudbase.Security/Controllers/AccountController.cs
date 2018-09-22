@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
@@ -8,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Cloudbase.Entities;
+using Cloudbase.Security.Filters;
 using Cloudbase.Security.Models;
 using CloudBase.Core.Extensions;
 using Microsoft.AspNetCore.Authorization;
@@ -23,6 +23,7 @@ namespace Cloudbase.Security.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [AllowAnonymous]
+    //[Tenant]
     public class AccountController : ControllerBase
     {
         readonly UserManager<ApplicationUser> _userManager;
@@ -48,6 +49,9 @@ namespace Cloudbase.Security.Controllers
         [Route("token")]
         public async Task<IActionResult> CreateToken([FromBody] LoginModel loginModel)
         {
+            //var origin = HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "Origin").Value.ToString();
+            var host = HttpContext.Request.Host.Value;
+
             if (ModelState.IsValid)
             {
                 var loginResult = await _signInManager.PasswordSignInAsync(loginModel.Username, loginModel.Password, isPersistent: false, lockoutOnFailure: false);
@@ -82,32 +86,34 @@ namespace Cloudbase.Security.Controllers
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]
+        [Tenant]
         public async Task<IActionResult> Register([FromBody] RegisterModel registerModel)
         {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser
-                {
-                    //TODO: Use Automapper instaed of manual binding  
 
-                    UserName = registerModel.Username,
-                    FirstName = registerModel.FirstName,
-                    LastName = registerModel.LastName,
-                    Email = registerModel.Email
-                };
+            return Ok();
 
-                var identityResult = await _userManager.CreateAsync(user, registerModel.Password);
-                if (identityResult.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return Ok(GetToken(user));
-                }
-                else
-                {
-                    return BadRequest(identityResult.Errors);
-                }
-            }
-            return BadRequest(ModelState);
+            //if (ModelState.IsValid)
+            //{
+            //    var user = new ApplicationUser
+            //    {
+            //        //TODO: Use Automapper instaed of manual binding  
+
+            //        UserName = registerModel.Username,
+            //        FirstName = registerModel.FirstName,
+            //        LastName = registerModel.LastName,
+            //        Email = registerModel.Email
+            //    };
+
+            //    var identityResult = await _userManager.CreateAsync(user, registerModel.Password);
+            //    if (identityResult.Succeeded)
+            //    {
+            //        await _signInManager.SignInAsync(user, isPersistent: false);
+            //        return Ok(GetToken(user));
+            //    }
+
+            //    return BadRequest(identityResult.Errors);
+            //}
+            //return BadRequest(ModelState);
 
 
         }

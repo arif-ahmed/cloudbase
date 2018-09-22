@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CloudBase.Core.Extensions\CloudBase.Core.Extensions.csproj" />
+    <ProjectReference Include="..\CloudBase.Data\CloudBase.Data.csproj" />
     <ProjectReference Include="..\Cloudbase.Entities\Cloudbase.Entities.csproj" />
   </ItemGroup>
 

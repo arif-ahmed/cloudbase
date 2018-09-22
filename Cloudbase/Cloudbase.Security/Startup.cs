@@ -1,12 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography;
-using System.Text;
 using Cloudbase.Entities;
 using CloudBase.Core.Extensions;
+using CloudBase.Data.DbContext;
+using CloudBase.Data.TenantProvider;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -39,11 +41,18 @@ namespace Cloudbase.Security
 
             #region Add Entity Framework and Identity Framework  
 
-            services.AddDbContext<ApplicationUserDbContext>(options =>
+            //services.AddDbContext<ApplicationUserDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
+
+            //services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationUserDbContext>();
+
+
+            services.AddDbContext<SecurityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationUserDbContext>();
+                .AddEntityFrameworkStores<SecurityDbContext>();
 
             #endregion
 
@@ -75,6 +84,17 @@ namespace Cloudbase.Security
                     ValidateIssuerSigningKey = true
                 };
             });
+
+            #endregion
+
+            #region Tenant Provider
+            //var connection = Configuration["ConnectionString"];
+            //services.AddEntityFrameworkSqlServer();
+            //services.AddDbContext<PlaylistContext>(options => options.UseSqlServer(connection));
+            //services.AddDbContext<TenantsContext>(options => options.UseSqlServer(connection));
+            services.AddScoped<ITenantProvider, WebTenantProvider>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 
             #endregion
 

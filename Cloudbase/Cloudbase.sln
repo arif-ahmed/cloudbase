@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloudbase.ECommerce", "Clou
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utility", "Utility", "{9B4FAA15-9994-41A6-B4F6-CB21787015E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudBase.Core.Extensions", "CloudBase.Core.Extensions\CloudBase.Core.Extensions.csproj", "{3B929E8F-8361-4FDE-9A79-B319699ABD40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudBase.Core.Extensions", "CloudBase.Core.Extensions\CloudBase.Core.Extensions.csproj", "{3B929E8F-8361-4FDE-9A79-B319699ABD40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudBase.Data", "CloudBase.Data\CloudBase.Data.csproj", "{853EA93F-711F-4B21-9AFE-433792D4F150}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{3B929E8F-8361-4FDE-9A79-B319699ABD40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B929E8F-8361-4FDE-9A79-B319699ABD40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B929E8F-8361-4FDE-9A79-B319699ABD40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{853EA93F-711F-4B21-9AFE-433792D4F150}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{853EA93F-711F-4B21-9AFE-433792D4F150}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{853EA93F-711F-4B21-9AFE-433792D4F150}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{853EA93F-711F-4B21-9AFE-433792D4F150}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{0D2F5E05-DF35-4529-870A-35671246BED1} = {ED5E6272-87CE-4F20-9CFD-C75933F31880}
 		{FD135184-4B14-4D23-B71C-8107D563E5F9} = {ED5E6272-87CE-4F20-9CFD-C75933F31880}
 		{3B929E8F-8361-4FDE-9A79-B319699ABD40} = {9B4FAA15-9994-41A6-B4F6-CB21787015E0}
+		{853EA93F-711F-4B21-9AFE-433792D4F150} = {919E23EF-1AD7-4EAB-A999-06E941D8CEE8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5937CAD5-63F1-47B1-8810-C5AE0BDE1C75}
