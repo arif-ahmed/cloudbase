@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Cloudbase.Entities;
-using Cloudbase.Entities.TenantModels;
-using CloudBase.Data.TenantProvider;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +8,8 @@ namespace CloudBase.Data.DbContext
 {
     public class SecurityDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Student> Students { get; set; }
+
         public SecurityDbContext(DbContextOptions<SecurityDbContext> options) : base(options)
         {
             //_tenantId = tenantProvider.GetTenantId();

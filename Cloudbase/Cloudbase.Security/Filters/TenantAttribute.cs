@@ -12,9 +12,9 @@ namespace Cloudbase.Security.Filters
         public override void OnActionExecuting(ActionExecutingContext actionExecutingContext)
         {
 
+            //actionExecutingContext.HttpContext.RequestServices.GetService<WebTenantProvider>();
 
-
-/*            actionExecutingContext.Result = new StatusCodeResult(501);*/
+            /*            actionExecutingContext.Result = new StatusCodeResult(501);*/
             base.OnActionExecuting(actionExecutingContext);
 
             //var fullAddress = actionExecutingContext.HttpContext?.Request?
