@@ -29,18 +29,5 @@ namespace Cloudbase.Security.Models
 
             throw new ArgumentNullException(nameof(connid));
         }
-
-        public static IDbContext Create(string connid)
-        {
-            if (!string.IsNullOrEmpty(connid))
-            {
-                var connStr = connid; //ConnectionStrings[connid];
-                var optionsBuilder = new DbContextOptionsBuilder<SecurityDbContext>();
-                optionsBuilder.UseSqlServer(connStr);
-                return new SecurityDbContext(optionsBuilder.Options);
-            }
-
-            throw new ArgumentNullException(nameof(connid));
-        }
     }
 }

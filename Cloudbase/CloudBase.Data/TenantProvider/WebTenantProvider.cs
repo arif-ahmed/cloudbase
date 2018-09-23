@@ -14,7 +14,7 @@ namespace CloudBase.Data.TenantProvider
         {
             var host = accessor.HttpContext.Request.Host.Value;
 
-            _tenantId = context.GetTenantId(host);
+            //_tenantId = context.GetTenantId(host);
         }
 
         public Guid GetTenantId()
