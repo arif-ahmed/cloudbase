@@ -4,14 +4,17 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using Cloudbase.Entities;
 using Cloudbase.Security.Filters;
 using Cloudbase.Security.Models;
 using CloudBase.Core.Extensions;
+using CloudBase.Data;
+using CloudBase.Data.DbContext;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -24,7 +27,7 @@ namespace Cloudbase.Security.Controllers
     [ApiController]
     [AllowAnonymous]
     //[Tenant]
-    public class AccountController : ControllerBase
+    public class AccountController : BaseController
     {
         readonly UserManager<ApplicationUser> _userManager;
         readonly SignInManager<ApplicationUser> _signInManager;
@@ -33,10 +36,13 @@ namespace Cloudbase.Security.Controllers
 
 
         public AccountController(
+            SecurityDbContext securityDbContext,
+            TenantDbContext tenantDbContext,
            UserManager<ApplicationUser> userManager,
            SignInManager<ApplicationUser> signInManager,
            IConfiguration configuration,
-           ILogger<AccountController> logger)
+           ILogger<AccountController> logger,
+            IHttpContextAccessor httpContextAccessor) : base(securityDbContext, tenantDbContext, httpContextAccessor)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -49,8 +55,11 @@ namespace Cloudbase.Security.Controllers
         [Route("token")]
         public async Task<IActionResult> CreateToken([FromBody] LoginModel loginModel)
         {
-            //var origin = HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "Origin").Value.ToString();
-            var host = HttpContext.Request.Host.Value;
+            SecurityDbContext = DbContextFactory.Create(Tenant.DatabaseConnectionString);
+
+            return Ok();
+
+/*            var host = HttpContext.Request.Host.Value;
 
             if (ModelState.IsValid)
             {
@@ -65,7 +74,7 @@ namespace Cloudbase.Security.Controllers
 
                 return Ok(GetToken(user));
             }
-            return BadRequest(ModelState);
+            return BadRequest(ModelState);*/
 
         }
 
@@ -90,30 +99,47 @@ namespace Cloudbase.Security.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterModel registerModel)
         {
 
-            return Ok();
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser
+                {
+                    //TODO: Use Automapper instaed of manual binding  
 
-            //if (ModelState.IsValid)
-            //{
-            //    var user = new ApplicationUser
-            //    {
-            //        //TODO: Use Automapper instaed of manual binding  
+                    UserName = registerModel.Username,
+                    FirstName = registerModel.FirstName,
+                    LastName = registerModel.LastName,
+                    Email = registerModel.Email
+                };
 
-            //        UserName = registerModel.Username,
-            //        FirstName = registerModel.FirstName,
-            //        LastName = registerModel.LastName,
-            //        Email = registerModel.Email
-            //    };
 
-            //    var identityResult = await _userManager.CreateAsync(user, registerModel.Password);
-            //    if (identityResult.Succeeded)
-            //    {
-            //        await _signInManager.SignInAsync(user, isPersistent: false);
-            //        return Ok(GetToken(user));
-            //    }
+                SecurityDbContext = DbContextFactory.Create(Tenant.DatabaseConnectionString);
 
-            //    return BadRequest(identityResult.Errors);
-            //}
-            //return BadRequest(ModelState);
+
+                PasswordHasher<ApplicationUser> hasher = new PasswordHasher<ApplicationUser>();
+
+
+                user.PasswordHash = hasher.HashPassword(user, registerModel.Password);
+
+                SecurityDbContext.Users.Add(user);
+                SecurityDbContext.SaveChanges();
+
+                return Ok(GetToken(user));
+
+                /*                var userStore = new UserStore<ApplicationUser>(SecurityDbContext);
+                                var userManager = new UserManager<ApplicationUser>(userStore, null, null, null, null, null, null, null, null);
+
+                                var identityResult = await userManager.CreateAsync(user, registerModel.Password);*/
+
+                /*                var identityResult = await _userManager.CreateAsync(user, registerModel.Password);
+                                if (identityResult.Succeeded)
+                                {
+                                    await _signInManager.SignInAsync(user, isPersistent: false);
+                                    return Ok(GetToken(user));
+                                }*/
+
+                //return BadRequest(identityResult.Errors);
+            }
+            return BadRequest(ModelState);
 
 
         }
@@ -152,5 +178,7 @@ namespace Cloudbase.Security.Controllers
                 return new JwtSecurityTokenHandler().WriteToken(jwt);
             }
         }
+
+
     }
 }
