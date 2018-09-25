@@ -3,8 +3,8 @@ using System.IO;
 using System.Security.Cryptography;
 using Cloudbase.Entities;
 using CloudBase.Core.Extensions;
+using CloudBase.Data;
 using CloudBase.Data.DbContext;
-using CloudBase.Data.TenantProvider;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,18 +41,16 @@ namespace Cloudbase.Security
 
             #region Add Entity Framework and Identity Framework  
 
-            //services.AddDbContext<ApplicationUserDbContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
-
-            //services.AddIdentity<ApplicationUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<ApplicationUserDbContext>();
-
-
-            services.AddDbContext<SecurityDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
+            services.AddDbContext<SecurityDbContext>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<SecurityDbContext>();
+
+            services.AddDbContext<TenantDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
+
+            //services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<TenantDbContext>();
 
             #endregion
 
@@ -92,7 +90,6 @@ namespace Cloudbase.Security
             //services.AddEntityFrameworkSqlServer();
             //services.AddDbContext<PlaylistContext>(options => options.UseSqlServer(connection));
             //services.AddDbContext<TenantsContext>(options => options.UseSqlServer(connection));
-            services.AddScoped<ITenantProvider, WebTenantProvider>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 

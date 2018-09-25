@@ -1,6 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿
 using Cloudbase.Entities;
+using Cloudbase.Entities.TenantModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,12 +15,11 @@ namespace CloudBase.Data.DbContext
             //_tenantId = tenantProvider.GetTenantId();
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(_tenant.DatabaseConnectionString);
-
-        //    base.OnConfiguring(optionsBuilder);
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=ShopDb;Integrated Security=SSPI;");
+            base.OnConfiguring(optionsBuilder);
+        }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

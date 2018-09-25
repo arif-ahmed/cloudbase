@@ -1,6 +1,4 @@
 ﻿using Cloudbase.Entities.TenantModels;
-using CloudBase.Data.TenantProvider;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Cloudbase.Security.Filters
