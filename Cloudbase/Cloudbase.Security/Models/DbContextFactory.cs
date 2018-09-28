@@ -17,7 +17,7 @@ namespace Cloudbase.Security.Models
             ConnectionStrings = connStrs;
         }
 
-        public static SecurityDbContext Create(string connid)
+/*        public static SecurityDbContext Create(string connid)
         {
             if (!string.IsNullOrEmpty(connid))
             {
@@ -28,6 +28,6 @@ namespace Cloudbase.Security.Models
             }
 
             throw new ArgumentNullException(nameof(connid));
-        }
+        }*/
     }
 }

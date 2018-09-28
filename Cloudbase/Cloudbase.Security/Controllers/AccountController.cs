@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
@@ -16,6 +17,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -29,10 +31,11 @@ namespace Cloudbase.Security.Controllers
     //[Tenant]
     public class AccountController : BaseController
     {
-        readonly UserManager<ApplicationUser> _userManager;
-        readonly SignInManager<ApplicationUser> _signInManager;
-        readonly IConfiguration _configuration;
-        private readonly ILogger<AccountController> _logger;
+        UserManager<ApplicationUser> _userManager;
+        SignInManager<ApplicationUser> _signInManager;
+        IConfiguration _configuration;
+        private ILogger<AccountController> _logger;
+        private IHttpContextAccessor _httpContextAccessor;
 
 
         public AccountController(
@@ -48,6 +51,7 @@ namespace Cloudbase.Security.Controllers
             _signInManager = signInManager;
             _configuration = configuration;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
 
@@ -55,26 +59,46 @@ namespace Cloudbase.Security.Controllers
         [Route("token")]
         public async Task<IActionResult> CreateToken([FromBody] LoginModel loginModel)
         {
-            SecurityDbContext = DbContextFactory.Create(Tenant.DatabaseConnectionString);
 
-            return Ok();
+            //SecurityDbContext = DbContextFactory.Create(Tenant.DatabaseConnectionString);
 
-/*            var host = HttpContext.Request.Host.Value;
+            var optionsBuilder = new DbContextOptionsBuilder<SecurityDbContext>();
+            SecurityDbContext = new SecurityDbContext(optionsBuilder.Options, Tenant);
+            //var user = SecurityDbContext.Users.FirstOrDefault(x => x.UserName == loginModel.Username);
 
+            var userstore = new UserStore<ApplicationUser>(SecurityDbContext);
+            IPasswordHasher<ApplicationUser> hasher = new PasswordHasher<ApplicationUser>();
+
+            var validator = new UserValidator<ApplicationUser>();
+            var validators = new List<UserValidator<ApplicationUser>> { validator };
+
+            _userManager = new UserManager<ApplicationUser>(userstore, new OptionsProvider(), hasher, validators,null , null, null, null, null);
+            //var roleManager = new RoleManager<ApplicationUser>(userstore, new OptionsProvider(), hasher, validators, null, null, null, null, null);
+            _signInManager = new SignInManager<ApplicationUser>(_userManager, _httpContextAccessor,new UserClaimsPrincipalFactory<ApplicationUser>(_userManager, new OptionsProvider()), new OptionsProvider(), null, null);
+
+            //return Ok();
+
+            /*            PasswordHasher<ApplicationUser> hasher = new PasswordHasher<ApplicationUser>();
+
+                        if (hasher.VerifyHashedPassword(user, user.PasswordHash, loginModel.Password) != PasswordVerificationResult.Failed)
+                        {
+                            return Ok(GetToken(user));
+                        }
+
+                        return BadRequest();*/
+
+            var user = await _userManager.FindByNameAsync(loginModel.Username);
             if (ModelState.IsValid)
             {
                 var loginResult = await _signInManager.PasswordSignInAsync(loginModel.Username, loginModel.Password, isPersistent: false, lockoutOnFailure: false);
-
                 if (!loginResult.Succeeded)
                 {
                     return BadRequest();
                 }
-
-                var user = await _userManager.FindByNameAsync(loginModel.Username);
-
+                //var user = await _userManager.FindByNameAsync(loginModel.Username);
                 return Ok(GetToken(user));
             }
-            return BadRequest(ModelState);*/
+            return BadRequest(ModelState);
 
         }
 
@@ -112,7 +136,7 @@ namespace Cloudbase.Security.Controllers
                 };
 
 
-                SecurityDbContext = DbContextFactory.Create(Tenant.DatabaseConnectionString);
+                //SecurityDbContext = DbContextFactory.Create(Tenant.DatabaseConnectionString);
 
 
                 PasswordHasher<ApplicationUser> hasher = new PasswordHasher<ApplicationUser>();

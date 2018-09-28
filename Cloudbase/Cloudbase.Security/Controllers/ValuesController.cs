@@ -18,7 +18,7 @@ namespace Cloudbase.Security.Controllers
 
         public IActionResult Get()
         {
-            SecurityDbContext = DbContextFactory.Create(Tenant.DatabaseConnectionString);
+            //SecurityDbContext = DbContextFactory.Create(Tenant.DatabaseConnectionString);
             return Ok(SecurityDbContext.Students.Count());
         }
     }
