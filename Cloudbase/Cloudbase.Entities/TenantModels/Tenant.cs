@@ -2,13 +2,11 @@
 
 namespace Cloudbase.Entities.TenantModels
 {
-    public class Tenant
+    public class Tenant : Entity
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
 
-        public string Host { get; set; }
+        public string HostName { get; set; }
 
         public string DatabaseConnectionString { get; set; }
     }

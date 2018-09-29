@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CloudBase.Data.Migrations
 {
-    public partial class MyFirstMigration : Migration
+    public partial class Initail : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace CloudBase.Data.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Host = table.Column<string>(nullable: true),
+                    HostName = table.Column<string>(nullable: true),
                     DatabaseConnectionString = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Security.Cryptography;
 using Cloudbase.Entities;
 using CloudBase.Core.Extensions;

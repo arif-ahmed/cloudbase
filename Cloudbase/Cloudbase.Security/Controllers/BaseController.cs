@@ -23,7 +23,7 @@ namespace Cloudbase.Security.Controllers
             SecurityDbContext = securityDbContext;
             DbContext = context;
             var origin = accessor.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "Origin").Value.ToString();
-            Tenant = context.Tenants.FirstOrDefault(x => x.Host == origin);
+            Tenant = context.Tenants.FirstOrDefault(x => x.HostName == origin);
             if (Tenant != null) Tenant.DatabaseConnectionString = Tenant.DatabaseConnectionString.Replace(@"\\", @"\");
         }
     }

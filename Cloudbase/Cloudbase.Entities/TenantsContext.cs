@@ -21,7 +21,7 @@ namespace Cloudbase.Entities
 
         public Guid GetTenantId(string host)
         {
-            var tenant = Tenants.FirstOrDefault(t => t.Host == host);
+            var tenant = Tenants.FirstOrDefault(t => t.HostName == host);
             return tenant.Id;
         }
     }

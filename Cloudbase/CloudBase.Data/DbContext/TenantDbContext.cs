@@ -2,7 +2,7 @@
 using Cloudbase.Entities.TenantModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace CloudBase.Data
+namespace CloudBase.Data.DbContext
 {
     public class TenantDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
