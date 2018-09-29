@@ -10,7 +10,6 @@ using Cloudbase.Entities;
 using Cloudbase.Security.Filters;
 using Cloudbase.Security.Models;
 using CloudBase.Core.Extensions;
-using CloudBase.Data;
 using CloudBase.Data.DbContext;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

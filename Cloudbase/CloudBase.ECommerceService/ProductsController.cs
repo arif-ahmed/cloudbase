@@ -3,6 +3,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CloudBase.Data.DbContext;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudBase.ECommerceService
@@ -19,11 +20,12 @@ namespace CloudBase.ECommerceService
             Context = context;
         }
 
+        [Authorize]
         [HttpGet]
         //[Route("list")]
         public async Task<IActionResult> Get()
         {
-            return Ok(Context.Categories.Count());
+            return Ok("Product List");
         }
     }
 }

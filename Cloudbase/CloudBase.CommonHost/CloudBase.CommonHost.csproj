@@ -12,11 +12,11 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.3" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CloudBase.ECommerceService\CloudBase.ECommerceService.csproj" />
+    <ProjectReference Include="..\CloudBase.SecurityService\CloudBase.SecurityService.csproj" />
     <ProjectReference Include="..\CloudBase.TenantService\CloudBase.TenantService.csproj" />
   </ItemGroup>
 
