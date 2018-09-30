@@ -1,11 +1,11 @@
-﻿using Cloudbase.Entities;
-using Cloudbase.Entities.ECommerce;
+﻿using Cloudbase.Entities.ECommerce;
+using Cloudbase.Entities.SecurityModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CloudBase.Data.DbContext
 {
-    public class ECommerceDbContext : IdentityDbContext<ApplicationUser>
+    public class ECommerceDbContext : IdentityDbContext<User>
     {
         public DbSet<Category> Categories { get; set; }
 

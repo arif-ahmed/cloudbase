@@ -1,4 +1,6 @@
-﻿namespace Cloudbase.Entities.ECommerce
+﻿
+
+namespace Cloudbase.Entities.ECommerce
 {
     public class Category : Entity
     {

@@ -1,6 +1,7 @@
 ﻿
 using System;
 
+
 namespace Cloudbase.Entities.ECommerce
 {
     public class Product : Entity
