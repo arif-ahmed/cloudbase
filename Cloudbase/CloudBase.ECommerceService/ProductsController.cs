@@ -1,18 +1,17 @@
 ﻿
-
-using System.Linq;
 using System.Threading.Tasks;
 using CloudBase.Data.DbContext;
-using Microsoft.AspNetCore.Authorization;
+using CloudBase.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CloudBase.ECommerceService
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
-    {
+    public class ProductsController : BaseController
+    { 
         public ECommerceDbContext Context { get; set; }
 
         public ProductsController(ECommerceDbContext context)
@@ -20,12 +19,10 @@ namespace CloudBase.ECommerceService
             Context = context;
         }
 
-        [Authorize]
         [HttpGet]
-        //[Route("list")]
         public async Task<IActionResult> Get()
         {
-            return Ok("Product List");
+            return Ok(await Context.Categories.CountAsync());
         }
     }
 }

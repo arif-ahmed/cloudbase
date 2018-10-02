@@ -1,4 +1,5 @@
 ﻿
+using Cloudbase.Entities.SecurityModels;
 using Cloudbase.Entities.TenantModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,10 +13,18 @@ namespace CloudBase.Data.DbContext
         {
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=Tenantdb;Integrated Security=SSPI;");
-        //    base.OnConfiguring(optionsBuilder);
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=CloudbaseDb;Integrated Security=SSPI;");
+            base.OnConfiguring(optionsBuilder);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Tenant>().ToTable("Tenants");
+            modelBuilder.Entity<User>().ToTable("Users");
+            // add your own confguration here
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

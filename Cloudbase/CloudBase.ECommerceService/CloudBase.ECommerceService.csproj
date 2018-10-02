@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CloudBase.Data\CloudBase.Data.csproj" />
     <ProjectReference Include="..\Cloudbase.Entities\Cloudbase.Entities.csproj" />
+    <ProjectReference Include="..\CloudBase.Infrastructure\CloudBase.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

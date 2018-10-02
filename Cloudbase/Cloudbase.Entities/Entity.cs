@@ -1,4 +1,5 @@
 ﻿using System;
+using Cloudbase.Entities.TenantModels;
 
 namespace Cloudbase.Entities
 {
@@ -6,9 +7,9 @@ namespace Cloudbase.Entities
     {
         public Guid Id { get; set; }
         public Guid CreatedBy { get; set; }
-        public DateTime CreatedTime { get; set; }
-        public Guid ModifiedBy { get; set; }
-        public DateTime ModifiedTime { get; set; }
+        public DateTime CreateDate { get; set; }
+        public Guid LastUpdatedBy { get; set; }
+        public DateTime LastUpdateDate { get; set; }
 
         protected Entity()
         {

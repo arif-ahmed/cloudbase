@@ -55,6 +55,7 @@ namespace CloudBase.CommonHost
 
             services.AddDbContext<TenantDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
+/*            services.AddDbContext<TenantDbContext>(ServiceLifetime.Scoped);*/
             services.AddDbContext<ECommerceDbContext>();
 
             #region Add Authentication  
@@ -96,6 +97,7 @@ namespace CloudBase.CommonHost
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseTenantFinder();
             app.UseMvc();
 
             app.Run(async (context) =>
