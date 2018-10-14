@@ -9,7 +9,7 @@ namespace CloudBase.Data.DbContextFactories
         public ECommerceDbContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<ECommerceDbContext>();
-            builder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=CloudbaseDb;Integrated Security=SSPI;");
+            builder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=EShopDb;Integrated Security=SSPI;");
             return new ECommerceDbContext(builder.Options);
         }
     }

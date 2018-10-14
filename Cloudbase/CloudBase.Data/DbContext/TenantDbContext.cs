@@ -1,5 +1,5 @@
 ﻿
-using Cloudbase.Entities.SecurityModels;
+
 using Cloudbase.Entities.TenantModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +22,7 @@ namespace CloudBase.Data.DbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Tenant>().ToTable("Tenants");
-            modelBuilder.Entity<User>().ToTable("Users");
+            //modelBuilder.Entity<User>().ToTable("Users");
             // add your own confguration here
             base.OnModelCreating(modelBuilder);
         }

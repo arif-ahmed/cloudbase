@@ -1,9 +1,4 @@
-﻿
-using System.Collections.Generic;
-using Cloudbase.Entities.SecurityModels;
-
-
-namespace Cloudbase.Entities.TenantModels
+﻿namespace Cloudbase.Entities.TenantModels
 {
     public class Tenant : Entity
     {
@@ -13,6 +8,6 @@ namespace Cloudbase.Entities.TenantModels
 
         public string DatabaseConnectionString { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        //public ICollection<User> Users { get; set; }
     }
 }

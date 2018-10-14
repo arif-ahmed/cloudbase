@@ -1,5 +1,4 @@
 ﻿
-using System.Linq;
 using System.Threading.Tasks;
 using CloudBase.Data.DbContext;
 using Microsoft.AspNetCore.Builder;
@@ -22,7 +21,7 @@ namespace CloudBase.CommonHost
         { 
             _tenantDbContext = new TenantDbContext(new DbContextOptions<TenantDbContext>());
             context.Items["TENANT"] =
-                await _tenantDbContext.Tenants.FirstOrDefaultAsync(tenant => tenant.HostName == "www.ecommerce.com");
+                await _tenantDbContext.Tenants.FirstOrDefaultAsync(tenant => tenant.HostName == "www.boitoi.com");
             await _next.Invoke(context);
         }
     }

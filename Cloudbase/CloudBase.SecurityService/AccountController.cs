@@ -82,7 +82,7 @@ namespace CloudBase.SecurityService
 
         }
 
-        private String GetToken(IdentityUser user)
+        private string GetToken(IdentityUser user)
         {
             var utcNow = DateTime.UtcNow;
 

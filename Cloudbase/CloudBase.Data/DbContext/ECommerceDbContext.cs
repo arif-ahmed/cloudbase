@@ -7,8 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CloudBase.Data.DbContext
 {
-    public class ECommerceDbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class ECommerceDbContext : IdentityDbContext<User>
     {
+        private readonly Tenant _tenant;
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
 
@@ -18,15 +19,15 @@ namespace CloudBase.Data.DbContext
 
         public ECommerceDbContext(DbContextOptions<ECommerceDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
         {
-            var tenant = httpContextAccessor.HttpContext.Items["TENANT"] as Tenant;
+            _tenant = httpContextAccessor.HttpContext.Items["TENANT"] as Tenant;
 
-            if (tenant != null) tenant.DatabaseConnectionString = tenant.DatabaseConnectionString.Replace(@"\\", @"\");
+            if (_tenant != null) _tenant.DatabaseConnectionString = _tenant.DatabaseConnectionString.Replace(@"\\", @"\");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=CloudbaseDb;Integrated Security=SSPI;");
-            //optionsBuilder.UseSqlServer(_tenant.DatabaseConnectionString);
+            //optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=CloudbaseDb;Integrated Security=SSPI;");
+            optionsBuilder.UseSqlServer(_tenant.DatabaseConnectionString);
             base.OnConfiguring(optionsBuilder);
         }
     }

@@ -100,6 +100,8 @@ namespace CloudBase.CommonHost
             app.UseTenantFinder();
             app.UseMvc();
 
+            app.UseWelcomePage();
+
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");

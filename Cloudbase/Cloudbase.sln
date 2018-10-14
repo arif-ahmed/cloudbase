@@ -27,6 +27,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudBase.Infrastructure", "CloudBase.Infrastructure\CloudBase.Infrastructure.csproj", "{3BB3C3FC-4181-4805-86C3-45604727C6D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudBase.Repository", "CloudBase.Repository\CloudBase.Repository.csproj", "{83E4CFF0-900F-47D1-8DA3-BE5D8F64E336}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4E1826E3-9A91-461F-AAA5-24826B2FDE95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,10 @@ Global
 		{3BB3C3FC-4181-4805-86C3-45604727C6D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BB3C3FC-4181-4805-86C3-45604727C6D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BB3C3FC-4181-4805-86C3-45604727C6D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83E4CFF0-900F-47D1-8DA3-BE5D8F64E336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83E4CFF0-900F-47D1-8DA3-BE5D8F64E336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83E4CFF0-900F-47D1-8DA3-BE5D8F64E336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83E4CFF0-900F-47D1-8DA3-BE5D8F64E336}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +81,7 @@ Global
 		{8EF7EF24-4AD5-41E5-B1D8-181ABC2D674E} = {000DFD19-FFD4-41AB-BCA7-F8FA4632F4B4}
 		{B7E79572-AE60-4C75-816A-6B1CA00923BA} = {000DFD19-FFD4-41AB-BCA7-F8FA4632F4B4}
 		{3BB3C3FC-4181-4805-86C3-45604727C6D1} = {D261B170-1E53-4489-ADE4-16F5A10C006F}
+		{83E4CFF0-900F-47D1-8DA3-BE5D8F64E336} = {0AB0F04A-5303-47C5-8711-49B5D2D11686}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5937CAD5-63F1-47B1-8810-C5AE0BDE1C75}
